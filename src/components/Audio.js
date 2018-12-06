@@ -18,13 +18,13 @@ class Audio extends Component {
             <div className="media">
                 <div className="media-left">
                     <audio className={"media-object"} controls>
-                        <source src={this.props.audio.src} type={this.props.audio.type}/>
+                        <source src={this.props.audio.path} type={"audio/mp3"}/>
                         Your browser does not support the audio element.
                     </audio>
                 </div>
                 <div className="media-body">
-                    <h4 className="media-heading">{this.props.audio.description}</h4>
-                    {this.props.audio.description}
+                    <h4 className="media-heading">{this.props.audio.titulo}</h4>
+                    {this.props.audio.descricao}
                 </div>
             </div>
         );

@@ -19,13 +19,14 @@ class AudiosPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/audios')
-            .then((audios) => {
-                const result = audios.data;
-                console.log(result)
+        axios
+            .get('/api/audios')
+            .then((result) => {
+                const data = result.data;
                 this.setState({
-                    audios: result
+                    audios: data.audios
                 });
+                console.log(this.state)
             })
             .catch((err) => console.log(err));
     }
