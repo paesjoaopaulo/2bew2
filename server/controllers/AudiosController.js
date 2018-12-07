@@ -64,7 +64,7 @@ module.exports = class AudiosController extends Controller {
                 .then((audio) => {
                     console.log(audio)
                     if (audio) {
-                        res.send(audio);
+                        res.send({audio});
                     }
                 });
         }
@@ -87,7 +87,7 @@ module.exports = class AudiosController extends Controller {
     update(req, res, next) {
         this.checkAuth(req, res, next);
         Audio.find().then((audio) => {
-            res.send(audio);
+            res.send({audio});
         });
     }
 

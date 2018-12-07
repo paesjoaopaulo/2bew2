@@ -10,6 +10,8 @@ import HomePage from './pages/HomePage';
 import AudiosPage from "./pages/AudiosPage";
 import CreateAudio from "./pages/CreateAudio";
 import LoginPage from "./pages/LoginPage";
+import CadastroPage from "./pages/CadastroPage";
+import LogoutPage from "./pages/LogoutPage";
 
 ReactDOM.render(
     <BrowserRouter>
@@ -18,6 +20,8 @@ ReactDOM.render(
             <Route path="/audios" exact={true} component={AudiosPage}/>
             <Route path="/audios/create" exact={true} component={CreateAudio}/>
             <Route path="/login" exact={true} component={LoginPage}/>
+            <Route path="/cadastro" exact={true} component={CadastroPage}/>
+            <Route path="/logout" exact={true} component={LogoutPage}/>
         </div>
     </BrowserRouter>,
     document.getElementById('root')

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import './LoginPage.css';
+import './CadastroPage.css';
 import Content from "../components/Content";
 
 import axios from 'axios';
 import Alert from "../components/Message";
 
-class LoginPage extends Component {
+class CadastroPage extends Component {
 
     constructor(props) {
         super(props);
@@ -19,8 +19,13 @@ class LoginPage extends Component {
     componentWillMount() {
         this.setState({
             login: '',
-            password: ''
+            password: '',
+            password_confirm: ''
         });
+    }
+
+    changeNome(event) {
+        this.setState({name: event.target.value})
     }
 
     changeLogin(event) {
@@ -31,24 +36,39 @@ class LoginPage extends Component {
         this.setState({password: event.target.value})
     }
 
+    changePasswordConfirm(event) {
+        this.setState({password_confirm: event.target.value})
+    }
+
     submitForm(event) {
         event.preventDefault();
-        axios.post('/api/users/login', {login: this.state.login, password: this.state.password})
+        axios.post('/api/users/register', {
+            name: this.state.name,
+            login: this.state.login,
+            password: this.state.password,
+            password_confirm: this.state.password_confirm
+        })
             .then((result) => {
                 localStorage.setItem('user', result.data);
                 window.location = '/';
             }).catch((err) => {
-                alert(err.error);
+                console.log(err)
             }
         );
     }
 
     render() {
         return (
-            <Content title={"Fazer login"}>
-                <div className="LoginPage">
+            <Content title={"Criar uma conta"}>
+                <div className="CadastroPage">
                     <Alert alert={this.state.alert}/>
                     <form id={"form"} className={"form"}>
+
+                        <div className={"form-group"}>
+                            <label>Nome</label>
+                            <input type='text' className={"form-control"} onChange={this.changeNome.bind(this)}/>
+                        </div>
+
                         <div className={"form-group"}>
                             <label>Login</label>
                             <input type='text' className={"form-control"} onChange={this.changeLogin.bind(this)}/>
@@ -61,15 +81,22 @@ class LoginPage extends Component {
                         </div>
 
                         <div className={"form-group"}>
+                            <label>Confirmar Senha</label>
+                            <input type='password' className={"form-control"}
+                                   onChange={this.changePasswordConfirm.bind(this)}/>
+                        </div>
+
+                        <div className={"form-group"}>
                             <button type='button' className={"btn btn-primary"}
                                     onClick={this.submitForm.bind(this)}>Login
                             </button>
                         </div>
                     </form>
+
                 </div>
             </Content>
         );
     }
 }
 
-export default LoginPage;
+export default CadastroPage;

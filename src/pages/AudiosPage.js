@@ -17,29 +17,42 @@ class AudiosPage extends Component {
         this.state = {
             audios: [],
             query: '',
-            loaded: false
+            loaded: false,
+            showLoader: false
         };
     }
 
+    componentWillMount() {
+        this.setState({showLoader: false})
+    }
+
     componentDidMount() {
+        this.setState({showLoader: true})
         axios
             .get('/api/audios')
             .then((result) => {
                 const data = result.data;
                 this.setState({
                     audios: data.audios,
-                    loaded: true
+                    loaded: true,
+                    showLoader: false
                 });
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
     }
 
     list() {
-        return (
-            this.state.audios.map((audio, key) => {
-                return <Audio key={key} audio={audio}/>
-            })
-        )
+        if (this.state.audios.length > 0) {
+            return (
+                this.state.audios.map((audio, key) => {
+                    return <Audio key={key} audio={audio}/>
+                })
+            )
+        } else {
+            return (
+                <p>Nenhum áudio cadastrado ainda.</p>
+            )
+        }
     }
 
     render() {

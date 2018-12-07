@@ -13,7 +13,7 @@ module.exports = class DefaultController extends Controller {
         User.find({login: body.login, password: body.password}).then((user) => {
             if (user.length == 1) {
                 req.session.login = user;
-                res.redirect("/audios");
+                res.send(user);
             } else {
                 res.status(403);
                 res.send({error: "Credenciais inválidas", title: "Fazer login"});
@@ -22,7 +22,7 @@ module.exports = class DefaultController extends Controller {
     }
 
     register(req, res, next) {
-        res.send('auth/register', {title: 'Registrar'});
+        res.send({title: 'Registrar'});
     }
 
     doRegister(req, res, next) {
@@ -47,17 +47,17 @@ module.exports = class DefaultController extends Controller {
             if (Object.keys(errors).length == 0) {
                 new User(body).save().then((user) => {
                     req.session.login = user;
-                    res.redirect('/');
+                    res.send({user});
                 })
             }
         });
-        res.send('auth/register', {errors, title: "Registrar"});
+        res.send({errors, title: "Registrar"});
     }
 
     logout(req, res, next) {
         this.checkAuth(req, res, next);
         req.session.destroy();
-        res.redirect('/users/login');
+        res.send({title: "Deslogado com sucesso"});
 
     }
 };
