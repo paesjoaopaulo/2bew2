@@ -7,6 +7,7 @@ module.exports = class Audio extends Model {
         this.titulo = data.titulo;
         this.descricao = data.descricao;
         this.path = data.path;
+        this.type = data.type;
         this._id = data._id;
         this.collection = 'audios';
     }

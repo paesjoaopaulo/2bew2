@@ -15,10 +15,10 @@ class Audio extends Component {
     render() {
         return (
 
-            <div className="media">
+            <div className="media col-md-6">
                 <div className="media-left">
                     <audio className={"media-object"} controls>
-                        <source src={this.props.audio.path} type={"audio/mp3"}/>
+                        <source src={"uploads/" + this.props.audio.path} type={"audio/mp3"}/>
                         Your browser does not support the audio element.
                     </audio>
                 </div>

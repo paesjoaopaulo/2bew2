@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './LoginPage.css';
+import './ErrorPage.css';
 
 import Top from "../components/Top";
 

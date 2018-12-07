@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import './LoginPage.css';
+import './AudiosPage.css';
+
+import Loader from 'react-loader';
 
 import Sidebar from "../components/Sidebar";
 import Top from "../components/Top";
@@ -14,7 +16,8 @@ class AudiosPage extends Component {
         super(props);
         this.state = {
             audios: [],
-            query: ''
+            query: '',
+            loaded: false
         };
     }
 
@@ -24,17 +27,17 @@ class AudiosPage extends Component {
             .then((result) => {
                 const data = result.data;
                 this.setState({
-                    audios: data.audios
+                    audios: data.audios,
+                    loaded: true
                 });
-                console.log(this.state)
             })
             .catch((err) => console.log(err));
     }
 
     list() {
         return (
-            this.state.audios.map((audio) => {
-                return <Audio audio={audio}/>
+            this.state.audios.map((audio, key) => {
+                return <Audio key={key} audio={audio}/>
             })
         )
     }
@@ -44,11 +47,13 @@ class AudiosPage extends Component {
             <div className="AudiosPage">
                 <Top/>
                 <Sidebar/>
-                <Content title="Áudios">
-                    <div className="audios-list row">
-                        {this.list()}
-                    </div>
-                </Content>
+                <Loader loaded={this.state.loaded}>
+                    <Content title="Áudios">
+                        <div className="audios-list row">
+                            {this.list()}
+                        </div>
+                    </Content>
+                </Loader>
             </div>
         );
     }

@@ -27,13 +27,13 @@ module.exports = class AudiosController extends Controller {
     }
 
     store(req, res, next) {
-        this.checkAuth(req, res, next);
 
         let body = req.body;
 
         let titulo = body.titulo;
         let descricao = body.descricao;
         let file = req.file;
+        let type = req.file.type;
         let path = "";
 
         let errors = [];
@@ -59,12 +59,12 @@ module.exports = class AudiosController extends Controller {
             res.send({title: 'Novo áudio', errors})
         } else {
             console.log("Entrou")
-            new Audio({titulo, descricao, path})
+            new Audio({titulo, descricao, path, type})
                 .save()
                 .then((audio) => {
                     console.log(audio)
                     if (audio) {
-                        res.redirect('/audios');
+                        res.send(audio);
                     }
                 });
         }
