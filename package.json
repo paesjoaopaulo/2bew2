@@ -33,5 +33,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "https://bew2.herokuapp.com:8000/"
+  "proxy": "http://172.31.8.97:8000/"
 }

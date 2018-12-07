@@ -38,7 +38,12 @@ class LoginPage extends Component {
                 localStorage.setItem('user', result.data);
                 window.location = '/';
             }).catch((err) => {
-                alert(err.error);
+                this.setState({
+                    alert: {
+                        message: "Credenciais inválidas",
+                        type: 'danger'
+                    }
+                })
             }
         );
     }
